@@ -88,6 +88,19 @@ The analysis highlights a strong mismatch between inbound arrival patterns and d
 * `sql/Inbound_view.sql` → SQL queries
 * `dashboard/inbound_view_dashboard.png` → Dashboard preview
 * `README.md` → Project documentation
+## Business Impact
+
+- Peak hour demand exceeds dock capacity by 10–15x, indicating severe operational bottlenecks  
+- Current static dock allocation is inefficient for variable hourly demand  
+- Significant idle capacity exists during off-peak hours, leading to resource underutilization  
+- Suggests need for dynamic dock allocation and staggered scheduling strategy
+
+## Recommendations
+
+- Introduce staggered arrival scheduling for vehicles  
+- Increase temporary dock capacity during peak hours  
+- Shift part of inbound load to off-peak windows  
+- Improve forecasting for proactive workforce planning  
 
 ---
 
