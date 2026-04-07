@@ -1,0 +1,83 @@
+CREATE DATABASE ops_dashboard;
+USE ops_dashboard;
+CREATE TABLE vehicle_arrival_data (
+    Date DATE,
+    Vehicle_Number VARCHAR(20),
+    Previous_Node VARCHAR(50),
+    Origin_Type VARCHAR(20),
+    Vehicle_Size VARCHAR(10),
+    Arrival_Time TIME,
+    Volume INT,
+    Dock_Capacity INT,
+    Required_Docks INT,
+    Hour INT
+);
+SELECT COUNT(*) FROM vehicle_arrival_data;
+SELECT * FROM vehicle_arrival_data LIMIT 10;
+SELECT 
+    Hour,
+    SUM(Required_Docks) AS Total_Docks
+FROM vehicle_arrival_data
+GROUP BY Hour
+ORDER BY Hour;
+
+SELECT 
+    Hour,
+    SUM(Required_Docks) AS Total_Docks
+FROM vehicle_arrival_data
+GROUP BY Hour
+ORDER BY Total_Docks DESC
+LIMIT 1;
+SELECT 
+    Hour,
+    SUM(Required_Docks) AS Required_Docks,
+    7 AS Available_Docks,
+    SUM(Required_Docks) - 7 AS Gap
+FROM vehicle_arrival_data
+GROUP BY Hour
+ORDER BY Hour;
+
+SELECT 
+    Hour,
+    SUM(Required_Docks) AS Required_Docks,
+    7 AS Available_Docks,
+    SUM(Required_Docks) - 7 AS Dock_Gap,
+    ROUND(SUM(Required_Docks) / 7, 2) AS Dock_Utilization
+FROM vehicle_arrival_data
+GROUP BY Hour
+ORDER BY Hour;
+
+SELECT 
+    Hour,
+    ROUND(SUM(Required_Docks)/14,2) AS Avg_Docks_Required,
+    7 AS Available_Docks,
+    ROUND((SUM(Required_Docks)/14) - 7,2) AS Avg_Gap
+FROM vehicle_arrival_data
+GROUP BY Hour
+ORDER BY Hour;
+
+WITH hourly_data AS (
+    SELECT 
+        Hour,
+        ROUND(SUM(Volume)/14,0) AS Avg_Volume,
+        7000 AS Capacity
+    FROM vehicle_arrival_data
+    GROUP BY Hour
+),
+calc AS (
+    SELECT 
+        Hour,
+        Avg_Volume,
+        Capacity,
+        SUM(Avg_Volume - Capacity) OVER (ORDER BY Hour ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS Running_Backlog
+    FROM hourly_data
+)
+SELECT 
+    Hour,
+    Avg_Volume,
+    Capacity,
+    CASE 
+        WHEN Running_Backlog < 0 THEN 0
+        ELSE ROUND(Running_Backlog,0)
+    END AS Backlog
+FROM calc;
