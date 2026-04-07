@@ -43,23 +43,19 @@ The dataset represents 14 days of inbound vehicle arrivals with the following fi
 
 ### 2. SQL Analysis
 
-Key queries performed:
-
-* Hourly dock demand calculation
-* Volume aggregation by hour
-* Peak hour identification
-* Comparison of required vs available dock capacity
+* Calculated hourly dock demand
+* Aggregated volume by hour
+* Identified peak load hours
+* Compared required vs available dock capacity
 
 ---
 
 ### 3. Dashboard Development
 
-A Power BI dashboard was created to visualize:
+A Power BI dashboard was built to visualize:
 
 * Dock Demand (Average per Day by Hour)
 * Inbound Volume (Average per Day by Hour)
-
-The dashboard highlights how inbound flow varies across the day and how it impacts dock utilization.
 
 ---
 
@@ -75,30 +71,29 @@ The dashboard highlights how inbound flow varies across the day and how it impac
 
 ---
 
+## Dashboard Preview
+
+![Dashboard](dashboard/inbound_view_dashboard.png)
+
+---
+
 ## Conclusion
 
-The analysis demonstrates a strong mismatch between inbound arrival patterns and available dock capacity. Without intervention, peak-hour congestion is likely to result in delays, inefficiencies, and operational strain.
-
-This project highlights how data-driven insights can support better capacity planning, workforce allocation, and scheduling decisions in logistics operations.
+The analysis highlights a strong mismatch between inbound arrival patterns and dock capacity. Peak-hour congestion can lead to delays and inefficiencies, while off-peak hours remain underutilized. Data-driven insights like these can support better capacity planning and operational decision-making.
 
 ---
 
 ## Files in Repository
 
-* `data/vehicle_arrival_data.csv` → Raw dataset
-* `sql/queries.sql` → SQL queries used for analysis
-* `dashboard/inbound_capacity_dashboard.pbix` → Power BI dashboard
+* `Dataset/Inbound_Arrival.csv` → Raw dataset
+* `sql/Inbound_view.sql` → SQL queries
+* `dashboard/inbound_view_dashboard.png` → Dashboard preview
 * `README.md` → Project documentation
 
 ---
 
-## Dashboard Preview
-
-![Dashboard](dashboard/inbound_view_dashboard.png)
-
-
 ## Future Scope
 
-* Introduce forecasting for volume distribution
-* Simulate backlog and rollover capacity
-* Optimize dock allocation strategies
+* Introduce forecasting based on historical patterns
+* Model backlog and rollover capacity
+* Optimize dock allocation and scheduling strategies
