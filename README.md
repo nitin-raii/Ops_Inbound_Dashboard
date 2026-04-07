@@ -73,8 +73,7 @@ A Power BI dashboard was built to visualize:
 
 ## Dashboard Preview
 
-![Dashboard](dashboard/inbound_view_dashboard.png)
-
+![Dashboard](inbound_view_dashboard.png)
 ---
 
 ## Conclusion
